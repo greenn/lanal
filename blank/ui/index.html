@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lanal 0.0.1 UI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="stage">
+    <section class="app-shell" aria-label="Lanal desktop UI mockup">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 24" role="img"><path d="M2 13h6l3-8 5 15 5-11 4 8 4-14 5 17 3-8h9" /></svg>
+          </span>
+          <span class="brand-name">Lanal <strong>0.0.1</strong></span>
+        </div>
+
+        <div class="topbar-actions" aria-hidden="true">
+          <button class="window-button">—</button>
+          <button class="window-button">□</button>
+          <button class="window-button">×</button>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="history-panel panel">
+          <div class="section-heading">
+            <span>History</span>
+            <button class="icon-button" title="New request">+</button>
+          </div>
+
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg>
+            <input type="search" placeholder="Search domains..." id="historySearch" />
+          </label>
+
+          <nav class="history-list" id="historyList">
+            <section class="domain-group" data-domain="novelcrow.com">
+              <button class="domain-heading" type="button">
+                <span class="chevron">⌄</span>
+                <span class="globe">◎</span>
+                <strong>novelcrow.com</strong>
+                <span class="count">3</span>
+              </button>
+              <div class="request-list">
+                <button class="request-row active" data-status="403" data-method="INFO" data-path="/" data-url="https://novelcrow.com/">
+                  <span class="time">08:45:12</span><span class="status status-403">403</span><span class="method">INFO</span><span class="path">/</span>
+                </button>
+                <button class="request-row" data-status="200" data-method="GET" data-path="/" data-url="https://novelcrow.com/">
+                  <span class="time">08:44:37</span><span class="status status-200">200</span><span class="method">GET</span><span class="path">/</span>
+                </button>
+                <button class="request-row" data-status="200" data-method="HEAD" data-path="/" data-url="https://novelcrow.com/">
+                  <span class="time">08:44:02</span><span class="status status-200">200</span><span class="method">HEAD</span><span class="path">/</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="domain-group" data-domain="google.com">
+              <button class="domain-heading" type="button">
+                <span class="chevron">⌄</span><span class="globe">◎</span><strong>google.com</strong><span class="count">2</span>
+              </button>
+              <div class="request-list">
+                <button class="request-row" data-status="200" data-method="HEAD" data-path="/" data-url="https://google.com/">
+                  <span class="time">08:23:32</span><span class="status status-200">200</span><span class="method">HEAD</span><span class="path">/</span>
+                </button>
+                <button class="request-row" data-status="200" data-method="GET" data-path="/" data-url="https://google.com/">
+                  <span class="time">08:23:31</span><span class="status status-200">200</span><span class="method">GET</span><span class="path">/</span>
+                </button>
+              </div>
+            </section>
+
+            <section class="domain-group" data-domain="api.ipify.org">
+              <button class="domain-heading" type="button">
+                <span class="chevron">⌄</span><span class="globe">◎</span><strong>api.ipify.org</strong><span class="count">1</span>
+              </button>
+              <div class="request-list">
+                <button class="request-row" data-status="200" data-method="GET" data-path="/" data-url="https://api.ipify.org/">
+                  <span class="time">08:20:11</span><span class="status status-200">200</span><span class="method">GET</span><span class="path">/</span>
+                </button>
+              </div>
+            </section>
+          </nav>
+
+          <div class="history-footer">
+            <span class="gear">⚙</span>
+            <span>Total requests</span>
+            <strong>6</strong>
+          </div>
+        </aside>
+
+        <section class="main-panel">
+          <div class="request-card card">
+            <div class="url-row">
+              <label class="url-box">
+                <span class="link-icon">↗</span>
+                <input id="urlInput" value="https://novelcrow.com/" aria-label="Request URL" />
+              </label>
+              <button class="run-button" id="runButton">Run <span>▶</span></button>
+            </div>
+
+            <div class="quick-controls" aria-label="curl presets">
+              <div class="segmented" data-group="method">
+                <button class="segment active" data-value="HEAD">HEAD</button>
+                <button class="segment" data-value="GET">GET</button>
+              </div>
+
+              <label class="toggle-control">
+                <input type="checkbox" id="verboseToggle" />
+                <span class="toggle"></span>
+                <span>Verbose</span>
+              </label>
+
+              <div class="segmented" data-group="ip">
+                <button class="segment active" data-value="IPv4">IPv4</button>
+                <button class="segment" data-value="IPv6">IPv6</button>
+              </div>
+
+              <div class="segmented" data-group="http">
+                <button class="segment" data-value="HTTP/1.1">HTTP/1.1</button>
+                <button class="segment active" data-value="HTTP/2">HTTP/2</button>
+              </div>
+
+              <label class="toggle-control browser-toggle">
+                <span>Browser-like</span>
+                <input type="checkbox" checked id="browserToggle" />
+                <span class="toggle"></span>
+              </label>
+
+              <select class="select-control" id="infoSelect" aria-label="Additional preset">
+                <option>Info</option>
+                <option>Redirects</option>
+                <option>Raw</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="overview">Overview</button>
+            <button class="tab" data-tab="headers">Headers</button>
+            <button class="tab" data-tab="body">Body</button>
+            <button class="tab" data-tab="timing">Timing</button>
+            <button class="tab" data-tab="command">Command</button>
+          </div>
+
+          <div class="tab-content active" id="overview">
+            <article class="summary-card card">
+              <div class="summary-top">
+                <div class="status-title">
+                  <span class="status-big" id="statusBig">403</span>
+                  <div>
+                    <h1 id="statusText">Forbidden</h1>
+                    <p>Request completed</p>
+                  </div>
+                </div>
+                <div class="server-block">
+                  <strong>☁ &nbsp; cloudflare</strong>
+                  <span>CF-RAY: 97f36e2bb5ab123-FRA</span>
+                  <span>29.08.2026&nbsp;&nbsp;08:45:12</span>
+                </div>
+              </div>
+
+              <div class="summary-grid">
+                <dl class="detail-list">
+                  <div><dt>Final URL</dt><dd id="finalUrl">https://novelcrow.com/</dd></div>
+                  <div><dt>Protocol</dt><dd>HTTP/2</dd></div>
+                  <div><dt>Remote IP</dt><dd>104.21.43.32</dd></div>
+                  <div><dt>Server</dt><dd>cloudflare</dd></div>
+                  <div><dt>IP Location</dt><dd>🇫🇷 &nbsp;France (FRA)</dd></div>
+                  <div><dt>TLS</dt><dd class="good">TLS 1.3</dd></div>
+                </dl>
+                <dl class="detail-list timing-list">
+                  <div><dt>DNS Lookup</dt><dd>0.021 s</dd></div>
+                  <div><dt>TCP Connect</dt><dd>0.054 s</dd></div>
+                  <div><dt>TLS Handshake</dt><dd>0.118 s</dd></div>
+                  <div><dt>TTFB</dt><dd>0.183 s</dd></div>
+                  <div class="total-time"><dt>Total Time</dt><dd>0.184 s</dd></div>
+                </dl>
+              </div>
+            </article>
+
+            <article class="metrics-card card">
+              <div class="metric"><span class="metric-icon danger">◇</span><span><small>Status</small><strong id="metricStatus">Forbidden</strong></span></div>
+              <div class="metric"><span class="metric-icon blue">◎</span><span><small>Protocol</small><strong>HTTP/2</strong></span></div>
+              <div class="metric"><span class="metric-icon blue">☁</span><span><small>Server</small><strong>cloudflare</strong></span></div>
+              <div class="metric"><span class="metric-icon gray">▤</span><span><small>IP</small><strong>104.21.43.32</strong></span></div>
+              <div class="metric"><span class="metric-icon gray">◷</span><span><small>Total Time</small><strong>0.184 s</strong></span></div>
+            </article>
+          </div>
+
+          <div class="tab-content card text-panel" id="headers">
+            <h2>Response headers</h2>
+            <pre>HTTP/2 403
+server: cloudflare
+content-type: text/html; charset=UTF-8
+cf-ray: 97f36e2bb5ab123-FRA
+cache-control: private, max-age=0, no-store</pre>
+          </div>
+
+          <div class="tab-content card text-panel" id="body">
+            <h2>Body</h2>
+            <pre>&lt;title&gt;Sorry, you have been blocked&lt;/title&gt;
+&lt;p&gt;You are unable to access novelcrow.com&lt;/p&gt;</pre>
+          </div>
+
+          <div class="tab-content card text-panel" id="timing">
+            <h2>Timing</h2>
+            <div class="timing-bars">
+              <div><span>DNS</span><i style="--w:12%"></i><strong>21 ms</strong></div>
+              <div><span>TCP</span><i style="--w:30%"></i><strong>54 ms</strong></div>
+              <div><span>TLS</span><i style="--w:64%"></i><strong>118 ms</strong></div>
+              <div><span>TTFB</span><i style="--w:99%"></i><strong>183 ms</strong></div>
+            </div>
+          </div>
+
+          <div class="tab-content card text-panel" id="command">
+            <h2>Command</h2>
+            <pre id="commandText">curl -I -4 --http2 -A "Mozilla/5.0" --compressed https://novelcrow.com/</pre>
+            <button class="secondary-button" id="copyCommand">Copy command</button>
+          </div>
+
+          <footer class="statusbar">
+            <span class="completed-dot"></span><span id="runState">Completed</span>
+            <span>0.184 s</span><span>2.31 KB</span><span>29.08.2026 08:45:12</span>
+            <span class="statusbar-spacer"></span><button title="Export">⇩</button><button title="Delete">⌫</button>
+          </footer>
+        </section>
+
+        <aside class="inspector-panel">
+          <article class="side-card card">
+            <div class="side-card-heading"><span>Hints</span><span>⌁</span></div>
+            <div class="hint-item">
+              <strong class="hint-code">403</strong>
+              <span>Forbidden</span>
+            </div>
+            <div class="hint-item">
+              <strong>☁ &nbsp; cloudflare</strong>
+              <span>CDN / Security</span>
+            </div>
+          </article>
+
+          <article class="side-card note-card card">
+            <div class="side-card-heading"><span>Note</span></div>
+            <textarea id="noteInput" placeholder="Write your note..."></textarea>
+            <small id="noteState">No notes yet</small>
+          </article>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
