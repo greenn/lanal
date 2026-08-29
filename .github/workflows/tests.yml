@@ -13,5 +13,29 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Compile Python sources
+        run: python -m compileall -q lanal run.py tests
       - name: Run offline unit tests
         run: python -m unittest discover -s tests -v
+      - name: Install runtime dependency
+        run: python -m pip install -r requirements.txt
+      - name: Smoke-test the desktop UI
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from tempfile import TemporaryDirectory
+          from PySide6.QtWidgets import QApplication
+          from lanal.database import Database
+          from lanal.main_window import MainWindow
+
+          app = QApplication([])
+          with TemporaryDirectory() as folder:
+              db = Database(Path(folder) / "smoke.db")
+              db.seed_demo_if_empty()
+              window = MainWindow(db)
+              assert window.windowTitle() == "Lanal 0.0.1"
+              window.close()
+          print("UI smoke test passed")
+          PY
